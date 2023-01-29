@@ -10,11 +10,13 @@
 .import write_ppu_palettes
 .import write_ppu_attribute_table
 .import draw_dungeon_room
+.import draw_hero
 
 .proc main
   JSR write_ppu_palettes
   JSR write_ppu_attribute_table
   JSR draw_dungeon_room
+  JSR draw_hero
 
 vblank_wait:
   BIT PPU_STAT
