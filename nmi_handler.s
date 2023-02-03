@@ -5,6 +5,7 @@
 .segment "CODE"
 
 .import update_hero_y
+.import update_hero_x
 
 .proc nmi_handler
   ; transfer bytes from $0200-$02ff into OAM
@@ -18,6 +19,7 @@
   STA PPU_SCROLL
 
   JSR update_hero_y
+  JSR update_hero_x
 
   RTI
 .endproc
