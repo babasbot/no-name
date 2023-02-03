@@ -5,6 +5,7 @@
 .segment "ZEROPAGE"
 
 .import hero_y_coord
+.import controller_1_mask
 
 .segment "CODE"
 
@@ -16,6 +17,18 @@
   TYA
   PHA
 
+  LDA controller_1_mask
+  AND #BTN_UP
+  BEQ check_down
+  DEC hero_y_coord
+
+check_down:
+  LDA controller_1_mask
+  AND #BTN_DOWN
+  BEQ done_checking
+  INC hero_y_coord
+
+done_checking:
   LDA hero_y_coord
 
   STA HERO_SPRITE_ADDR     ; write sprite-0 y-coord
