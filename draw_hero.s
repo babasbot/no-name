@@ -13,8 +13,6 @@ DOWN_SPRITE_R_ATTR = %01000000
 ;                     |+-------- Flip sprite horizontally
 ;                     +--------- Flip sprite vertically
 
-HERO_SPRITE_ADDR = $0200
-
 .segment "RODATA"
 
 hero:
@@ -41,7 +39,7 @@ hero:
   LDY #$00
 
 ; A -> PPU OAM hero data
-; Y -> Hero sprite address offset
+; Y -> Hero sprite address offsetdra
 loop:
   LDA hero,Y
   STA HERO_SPRITE_ADDR,Y
