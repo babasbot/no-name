@@ -4,7 +4,9 @@
 
 .segment "ZEROPAGE"
 
-.import hero_y_coord, hero_x_coord
+.import hero_y_coord
+.import hero_x_coord
+.import controller_1_mask
 
 .segment "CODE"
 
@@ -23,6 +25,9 @@
 
   LDA #HERO_DEFAULT_Y_COORD
   STA hero_y_coord
+
+  LDA #%00000001
+  STA controller_1_mask
 
 vblank_wait:
   BIT PPU_STAT

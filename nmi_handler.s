@@ -6,6 +6,7 @@
 
 .import update_hero_y
 .import update_hero_x
+.import read_controller
 
 .proc nmi_handler
   ; transfer bytes from $0200-$02ff into OAM
@@ -17,6 +18,8 @@
   LDA #$00
   STA PPU_SCROLL
   STA PPU_SCROLL
+
+  JSR read_controller
 
   JSR update_hero_y
   JSR update_hero_x
