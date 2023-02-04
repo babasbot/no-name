@@ -9,6 +9,8 @@
 
 .segment "CODE"
 
+.import face_hero_north
+
 .proc update_hero_y
   PHP
   PHA
@@ -20,39 +22,9 @@
   LDA controller_1_mask
   AND #BTN_UP
   BEQ check_down
+
+  JSR face_hero_north
   DEC hero_y_coord
-
-  LDA #$02                ; tile
-  LDX #$01                ; offset
-  STA HERO_SPRITE_ADDR, X ; write sprite-0 tile
-
-  LDA #%00000000          ; mask
-  LDX #$02                ; offset
-  STA HERO_SPRITE_ADDR, X ; write sprite-1 attributes
-
-  LDA #$02                ; tile
-  LDX #$05                ; offset
-  STA HERO_SPRITE_ADDR, X ; write sprite-1 tile
-
-  LDA #%01000000          ; mask
-  LDX #$06                ; offset
-  STA HERO_SPRITE_ADDR, X ; write sprite-1 attributes
-
-  LDA #$12                ; tile
-  LDX #$09                ; offset
-  STA HERO_SPRITE_ADDR, X ; write sprite-2 tile
-
-  LDA #%00000000          ; mask
-  LDX #$0a                ; offset
-  STA HERO_SPRITE_ADDR, X ; write sprite-1 attributes
-
-  LDA #$12                ; tile
-  LDX #$0d                ; offset
-  STA HERO_SPRITE_ADDR, X ; write sprite-3 tile
-
-  LDA #%01000000          ; mask
-  LDX #$0e                ; offset
-  STA HERO_SPRITE_ADDR, X ; write sprite-0 attributes
 
 check_down:
   LDA controller_1_mask
