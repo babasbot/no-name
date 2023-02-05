@@ -9,9 +9,6 @@
 
 .segment "CODE"
 
-.import face_hero_west
-.import face_hero_east
-
 .proc update_hero_x
   PHP
   PHA
@@ -23,16 +20,12 @@
   LDA controller_1_mask
   AND #BTN_LEFT
   BEQ check_right
-
-  JSR face_hero_west
   DEC hero_x_coord
 
 check_right:
   LDA controller_1_mask
   AND #BTN_RIGHT
   BEQ done_checking
-
-  JSR face_hero_east
   INC hero_x_coord
 
 done_checking:

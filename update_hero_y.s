@@ -9,9 +9,6 @@
 
 .segment "CODE"
 
-.import face_hero_north
-.import face_hero_south
-
 .proc update_hero_y
   PHP
   PHA
@@ -23,21 +20,16 @@
   LDA controller_1_mask
   AND #BTN_UP
   BEQ check_down
-
-  JSR face_hero_north
   DEC hero_y_coord
 
 check_down:
   LDA controller_1_mask
   AND #BTN_DOWN
   BEQ done_checking
-
-  JSR face_hero_south
   INC hero_y_coord
 
 done_checking:
   LDA hero_y_coord
-
   STA HERO_SPRITE_ADDR     ; write sprite-0 y-coord
 
   LDX #$04                 ; offset
