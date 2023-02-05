@@ -14,7 +14,7 @@
 
   ; sprite-0 data
 
-  LDA #$07
+  LDA #$02
   LDX #$01
   STA HERO_SPRITE_ADDR, X ; write tile number
 
@@ -24,11 +24,11 @@
 
   ; sprite-1 data
 
-  LDA #$08
+  LDA #$02
   LDX #$05
   STA HERO_SPRITE_ADDR, X ; write tile number
 
-  LDA #%00000000
+  LDA #%01000000
   LDX #$06
   STA HERO_SPRITE_ADDR, X ; write sprite attributes
 
