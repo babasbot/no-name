@@ -1,4 +1,5 @@
 main:
+	find . -name '*.o' -exec rm -v '{}' \;
 	find . -name '*.s' -exec ca65 '{}' \;
 	ld65 *.o -C game.cfg -o game.nes
 
