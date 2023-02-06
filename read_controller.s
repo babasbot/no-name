@@ -4,7 +4,7 @@
 
 .segment "ZEROPAGE"
 
-.import controller_1_mask
+.import controller_1_input
 
 .segment "CODE"
 
@@ -23,12 +23,12 @@
   STA CONTROLLER_1
 
   LDA #%00000001
-  STA controller_1_mask
+  STA controller_1_input
 
 get_controller_state:
   LDA CONTROLLER_1
   LSR A
-  ROL controller_1_mask
+  ROL controller_1_input
   BCC get_controller_state
 
   PLA

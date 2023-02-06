@@ -6,7 +6,7 @@
 
 .import hero_y_coord
 .import hero_x_coord
-.import controller_1_mask
+.import controller_1_input
 
 .segment "CODE"
 
@@ -27,7 +27,7 @@
   STA hero_y_coord
 
   LDA #%00000001
-  STA controller_1_mask
+  STA controller_1_input
 
 vblank_wait:
   BIT PPU_STAT

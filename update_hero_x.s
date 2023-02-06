@@ -5,7 +5,7 @@
 .segment "ZEROPAGE"
 
 .import hero_x_coord
-.import controller_1_mask
+.import controller_1_input
 
 .segment "CODE"
 
@@ -17,13 +17,13 @@
   TYA
   PHA
 
-  LDA controller_1_mask
+  LDA controller_1_input
   AND #BTN_LEFT
   BEQ check_right
   DEC hero_x_coord
 
 check_right:
-  LDA controller_1_mask
+  LDA controller_1_input
   AND #BTN_RIGHT
   BEQ done_checking
   INC hero_x_coord

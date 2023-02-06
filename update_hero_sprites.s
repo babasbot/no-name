@@ -4,7 +4,7 @@
 
 .segment "ZEROPAGE"
 
-.import controller_1_mask
+.import controller_1_input
 
 .segment "CODE"
 
@@ -25,47 +25,47 @@
   TYA
   PHA
 
-  LDA controller_1_mask
+  LDA controller_1_input
   AND #BTN_UP
   BEQ check_left
 
-  LDA controller_1_mask
+  LDA controller_1_input
   AND #BTN_LEFT
   BEQ check_up_right
 
   JMP face_northwest
 
 check_up_right:
-  LDA controller_1_mask
+  LDA controller_1_input
   AND #BTN_RIGHT
   BEQ face_north
 
   JMP face_northeast
 
 check_left:
-  LDA controller_1_mask
+  LDA controller_1_input
   AND #BTN_LEFT
   BEQ check_down
 
-  LDA controller_1_mask
+  LDA controller_1_input
   AND #BTN_DOWN
   BEQ face_west
 
   JMP face_southwest
 
 check_down:
-  LDA controller_1_mask
+  LDA controller_1_input
   AND #BTN_DOWN
   BEQ check_right
 
-  LDA controller_1_mask
+  LDA controller_1_input
   AND #BTN_RIGHT
   BEQ face_south
 
   JMP face_southeast
 
 check_right:
-  LDA controller_1_mask
+  LDA controller_1_input
   AND #BTN_RIGHT
   BEQ done
 
