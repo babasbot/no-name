@@ -2,6 +2,10 @@
 
 .include "constants.inc"
 
+.segment "ZEROPAGE"
+
+.import frame_counter
+
 .segment "CODE"
 
 .import update_hero_y
@@ -15,6 +19,16 @@
   STA OAM_ADDR
   LDA #$02
   STA OAM_DMA
+
+  LDA frame_counter
+  CMP #$3d
+  BCC @increment
+
+  LDA #$00
+  STA frame_counter
+
+@increment:
+  INC frame_counter
 
   LDA #$00
   STA PPU_SCROLL
