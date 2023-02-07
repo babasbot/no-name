@@ -11,5 +11,4 @@ frame_counter:      .res 1, $00
 .export hero_y_coord
 .export hero_x_coord
 .export controller_1_input
-.export lolwut
 .export frame_counter
