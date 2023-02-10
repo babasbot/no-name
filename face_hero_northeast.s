@@ -1,6 +1,26 @@
 ; vim: set syntax=asm_ca65:
 
 .include "constants.inc"
+.include "macros/write_oam.inc"
+
+TILE_0_INDEX_DEFAULT     = $12
+TILE_1_INDEX_DEFAULT     = $12
+TILE_2_INDEX_DEFAULT     = $16
+TILE_3_INDEX_DEFAULT     = $15
+
+TILE_0_INDEX_ANIMATION_A = $12
+TILE_1_INDEX_ANIMATION_A = $12
+TILE_2_INDEX_ANIMATION_A = $48
+TILE_3_INDEX_ANIMATION_A = $47
+
+TILE_0_INDEX_ANIMATION_B = $12
+TILE_1_INDEX_ANIMATION_B = $12
+TILE_2_INDEX_ANIMATION_B = $58
+TILE_3_INDEX_ANIMATION_B = $57
+
+.segment "ZEROPAGE"
+
+.import frame_counter
 
 .segment "CODE"
 
@@ -12,46 +32,58 @@
   TYA
   PHA
 
-  ; sprite-0 data
+  LDA frame_counter
+  CMP #$10
+  BCC @animation_a
 
-  LDA #$02
-  LDX #$01
-  STA HERO_SPRITE_ADDR, X ; write tile number
+  LDA frame_counter
+  CMP #$20
+  BCC @default
 
-  LDA #%00000000
-  LDX #$02
-  STA HERO_SPRITE_ADDR, X ; write sprite attributes
+  LDA frame_counter
+  CMP #$30
+  BCC @animation_b
 
-  ; sprite-1 data
+  JMP @default
 
-  LDA #$02
-  LDX #$05
-  STA HERO_SPRITE_ADDR, X ; write tile number
+@default:
+  write_oam TILE_0_INDEX_DEFAULT, HERO_0_INDEX_OFFSET
+  write_oam TILE_1_INDEX_DEFAULT, HERO_1_INDEX_OFFSET
+  write_oam TILE_2_INDEX_DEFAULT, HERO_2_INDEX_OFFSET
+  write_oam TILE_3_INDEX_DEFAULT, HERO_3_INDEX_OFFSET
 
-  LDA #%01000000
-  LDX #$06
-  STA HERO_SPRITE_ADDR, X ; write sprite attributes
+  write_oam FLIP_HORIZONTALLY,    HERO_0_ATTR_OFFSET
+  write_oam ZERO,                 HERO_1_ATTR_OFFSET
+  write_oam FLIP_HORIZONTALLY,    HERO_2_ATTR_OFFSET
+  write_oam FLIP_HORIZONTALLY,    HERO_3_ATTR_OFFSET
 
-  ; sprite-2 data
+  JMP @done
 
-  LDA #$17
-  LDX #$09
-  STA HERO_SPRITE_ADDR, X ; write tile number
+@animation_a:
+  write_oam TILE_0_INDEX_ANIMATION_A, HERO_0_INDEX_OFFSET
+  write_oam TILE_1_INDEX_ANIMATION_A, HERO_1_INDEX_OFFSET
+  write_oam TILE_2_INDEX_ANIMATION_A, HERO_2_INDEX_OFFSET
+  write_oam TILE_3_INDEX_ANIMATION_A, HERO_3_INDEX_OFFSET
 
-  LDA #%00000000
-  LDX #$0a
-  STA HERO_SPRITE_ADDR, X ; write sprite attributes
+  write_oam FLIP_HORIZONTALLY, HERO_0_ATTR_OFFSET
+  write_oam ZERO,              HERO_1_ATTR_OFFSET
+  write_oam FLIP_HORIZONTALLY, HERO_2_ATTR_OFFSET
+  write_oam FLIP_HORIZONTALLY, HERO_3_ATTR_OFFSET
 
-  ; sprite-3 data
+  JMP @done
 
-  LDA #$18
-  LDX #$0d
-  STA HERO_SPRITE_ADDR, X ; write tile number
+@animation_b:
+  write_oam TILE_0_INDEX_ANIMATION_B, HERO_0_INDEX_OFFSET
+  write_oam TILE_1_INDEX_ANIMATION_B, HERO_1_INDEX_OFFSET
+  write_oam TILE_2_INDEX_ANIMATION_B, HERO_2_INDEX_OFFSET
+  write_oam TILE_3_INDEX_ANIMATION_B, HERO_3_INDEX_OFFSET
 
-  LDA #%00000000
-  LDX #$0e
-  STA HERO_SPRITE_ADDR, X ; write sprite attributes
+  write_oam FLIP_HORIZONTALLY, HERO_0_ATTR_OFFSET
+  write_oam ZERO,              HERO_1_ATTR_OFFSET
+  write_oam FLIP_HORIZONTALLY, HERO_2_ATTR_OFFSET
+  write_oam FLIP_HORIZONTALLY, HERO_3_ATTR_OFFSET
 
+@done:
   PLA
   TAY
   PLA
